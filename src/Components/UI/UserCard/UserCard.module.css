@@ -1,0 +1,37 @@
+.UserCard {
+  color: white;
+  background-color: grey;
+  border-radius: 8px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.UserCardContents {
+  margin-left: 32px;
+  margin-right: 32px;
+  padding-bottom: 16px;
+  padding-top: 16px;
+}
+
+.UserHeading {
+  display: flex;
+  font-size: 20px;
+  font-weight: 600px;
+}
+
+.UserHeading a {
+  text-decoration: none;
+  color: #09d8d8;
+}
+
+.UserCardImg {
+  margin-left: auto;
+  align-self: flex-end;
+}
+
+.UserCardImg img {
+  width: 128px;
+  height: auto;
+  border-radius: 15%;
+  box-shadow: 0 2px 4px rgb(36, 36, 36);
+}
