@@ -4,6 +4,7 @@
   border-radius: 8px;
   margin-top: 20px;
   margin-bottom: 20px;
+  text-align: left;
 }
 
 .UserCardContents {
@@ -15,7 +16,7 @@
 
 .UserHeading {
   display: flex;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600px;
 }
 

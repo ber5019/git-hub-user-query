@@ -1,0 +1,7 @@
+.NavHeader {
+  text-align: center;
+  font-size: 48px;
+  color: #e0e0e0;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: grey;
+}

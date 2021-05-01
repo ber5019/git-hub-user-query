@@ -1,6 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Fragment } from 'react';
 
+import NavHeader from './Components/UI/NavHeader/NavHeader';
 import UserCard from './Components/UI/UserCard/UserCard';
+import ResultsPerPage from './Components/UI/ResultsPerPage/ResultsPerPage';
 import classes from './App.module.css';
 
 function App() {
@@ -58,6 +60,7 @@ function App() {
 
   const onChangeResultsPerPage = (numResultsPerPage) => {
     setResultsPerPage(numResultsPerPage);
+    console.log('clicked');
   };
 
   let userDataDisplay = <div>loading...</div>;
@@ -76,22 +79,38 @@ function App() {
   }
 
   let resultsPerPageOptions = [1, 5, 10, 15, 20, 25];
-  let resultsPerPageDisplay = resultsPerPageOptions.map((element) => (
-    <button key={element} onClick={() => onChangeResultsPerPage(element)}>
-      {element}
-    </button>
-  ));
 
+  const searchArea =
+    searchResults.length > 0 ? (
+      <Fragment>
+        <div>Search Result Count: {totalResults}</div>
+        <div>
+          Page: {currentPage} out of {Math.ceil(totalResults / resultsPerPage)}
+        </div>
+        <ResultsPerPage
+          options={resultsPerPageOptions}
+          clicked={onChangeResultsPerPage}
+          currentActive={resultsPerPage}
+        />
+        <button onClick={onPreviousPageHandler}>Previous Page</button>
+        <button onClick={onNextPageHandler}>Next Page</button>
+        {userDataDisplay}
+        <button onClick={onPreviousPageHandler}>Previous Page</button>
+        <button onClick={onNextPageHandler}>Next Page</button>
+      </Fragment>
+    ) : null;
   return (
     <div className={classes.App}>
-      <input type="text" id="search" ref={searchInputRef} />
+      <NavHeader />
+      <input
+        className={classes.SearchInput}
+        placeholder="Enter User Search"
+        type="text"
+        id="search"
+        ref={searchInputRef}
+      />
       <button onClick={onSearchHandler}>Search</button>
-      <div>Search Result Count: {totalResults}</div>
-      <button onClick={onNextPageHandler}>Next Page</button>
-      <div>{currentPage}</div>
-      <button onClick={onPreviousPageHandler}>Previous Page</button>
-      <div>{resultsPerPageDisplay}</div>
-      {userDataDisplay}
+      {searchArea}
     </div>
   );
 }
