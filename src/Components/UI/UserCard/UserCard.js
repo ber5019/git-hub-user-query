@@ -14,7 +14,6 @@ const UserCard = (props) => {
         return;
       }
       const userData = await response.json();
-      console.log(userData);
       setFollowerCount(userData.followers);
       setFollowingCount(userData.following);
       setBio(userData.bio);
@@ -27,7 +26,6 @@ const UserCard = (props) => {
         return;
       }
       const starredData = await response.json();
-      console.log(starredData);
       setStarredCount(starredData.length);
     };
 
@@ -48,10 +46,14 @@ const UserCard = (props) => {
             <img src={props.avatarURL} alt={`Avatar`} />
           </a>
         </div>
-        <div>Description: {bio}</div>
-        <div>Star Count: {starredCount === 100 ? `100 or more!` : starredCount}</div>
+        <div className={classes.Description}>
+          <div className={classes.DescriptionTitle}>Description:</div> {bio}
+        </div>
         <div>Followers: {followerCount}</div>
         <div>Following: {followingCount}</div>
+        <div>
+          <i className="far fa-star"></i> - {starredCount === 100 ? `100 or more!` : starredCount}
+        </div>
       </div>
     </div>
   );

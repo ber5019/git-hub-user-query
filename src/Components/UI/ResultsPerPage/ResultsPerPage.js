@@ -14,7 +14,11 @@ const ResultsPerPage = (props) => {
       </button>
     );
   });
-  return <div>{resultsPerPageDisplay}</div>;
+  return (
+    <div>
+      Results Per Page: <div className={classes.ResultsPerPage}>{resultsPerPageDisplay}</div>
+    </div>
+  );
 };
 
 export default ResultsPerPage;

@@ -1,6 +1,6 @@
 .UserCard {
   color: white;
-  background-color: grey;
+  background-color: rgb(80, 79, 79);
   border-radius: 8px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -35,4 +35,12 @@
   height: auto;
   border-radius: 15%;
   box-shadow: 0 2px 4px rgb(36, 36, 36);
+}
+
+.Description {
+  margin-bottom: 8px;
+}
+
+.DescriptionTitle {
+  text-decoration: underline;
 }

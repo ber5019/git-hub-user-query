@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, Fragment } from 'react';
 
 import NavHeader from './Components/UI/NavHeader/NavHeader';
 import UserCard from './Components/UI/UserCard/UserCard';
+import PaginationButtons from './Components/UI/Pagination/PaginationButtons';
 import ResultsPerPage from './Components/UI/ResultsPerPage/ResultsPerPage';
 import classes from './App.module.css';
 
@@ -44,11 +45,18 @@ function App() {
   }, [currentPage, resultsPerPage, searchInput]);
 
   const onSearchHandler = async () => {
-    setSearchInput(searchInputRef.current.value);
+    setSearchInput(searchInputRef.current.value.trim()); // lazy input sanitization
+  };
+
+  const handleInputKeyUp = (event) => {
+    if (event.key === 'Enter') {
+      setSearchInput(searchInputRef.current.value.trim()); // lazy input sanitization
+    }
   };
 
   const onNextPageHandler = () => {
-    if (searchResults.length > 0) {
+    const maxPages = Math.ceil(totalResults / resultsPerPage);
+    if (searchResults.length > 0 && currentPage < maxPages) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -60,7 +68,6 @@ function App() {
 
   const onChangeResultsPerPage = (numResultsPerPage) => {
     setResultsPerPage(numResultsPerPage);
-    console.log('clicked');
   };
 
   let userDataDisplay = <div>loading...</div>;
@@ -83,20 +90,20 @@ function App() {
   const searchArea =
     searchResults.length > 0 ? (
       <Fragment>
-        <div>Search Result Count: {totalResults}</div>
-        <div>
-          Page: {currentPage} out of {Math.ceil(totalResults / resultsPerPage)}
+        <div className={classes.SearchDetails}>
+          <div>Search Details:</div>
+          <div>Total Results: {totalResults}</div>
+          <div>
+            Page: <em>{currentPage}</em> out of {Math.ceil(totalResults / resultsPerPage)}
+          </div>
+          <ResultsPerPage
+            options={resultsPerPageOptions}
+            clicked={onChangeResultsPerPage}
+            currentActive={resultsPerPage}
+          />
         </div>
-        <ResultsPerPage
-          options={resultsPerPageOptions}
-          clicked={onChangeResultsPerPage}
-          currentActive={resultsPerPage}
-        />
-        <button onClick={onPreviousPageHandler}>Previous Page</button>
-        <button onClick={onNextPageHandler}>Next Page</button>
         {userDataDisplay}
-        <button onClick={onPreviousPageHandler}>Previous Page</button>
-        <button onClick={onNextPageHandler}>Next Page</button>
+        <PaginationButtons nextPage={onNextPageHandler} prevPage={onPreviousPageHandler} />
       </Fragment>
     ) : null;
   return (
@@ -108,6 +115,7 @@ function App() {
         type="text"
         id="search"
         ref={searchInputRef}
+        onKeyUp={handleInputKeyUp}
       />
       <button onClick={onSearchHandler}>Search</button>
       {searchArea}
