@@ -45,11 +45,13 @@ function App() {
   }, [currentPage, resultsPerPage, searchInput]);
 
   const onSearchHandler = async () => {
+    setCurrentPage(1);
     setSearchInput(searchInputRef.current.value.trim()); // lazy input sanitization
   };
 
   const handleInputKeyUp = (event) => {
     if (event.key === 'Enter') {
+      setCurrentPage(1);
       setSearchInput(searchInputRef.current.value.trim()); // lazy input sanitization
     }
   };
